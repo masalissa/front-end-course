@@ -231,7 +231,7 @@ app.post("/signup",async(req,res)=>{
 app.get("/student-dashboard",check,async(req,res)=>{
     let notification = await Student.findOne({_id:req.session.studentID})
     let arrayOfNoSeen = notification.tasks.filter(task => task.seen == false)
-    let adminInfo = await Student.findOne({_id:"6a935cb4b1fe2da5f68cfb6f"})
+    let adminInfo = await Student.findOne({_id:"6a9c924fc43053dfb519c925"})
     let totalTasks = adminInfo.tasks.length
 
     let numbersOfSubmitted = 0
