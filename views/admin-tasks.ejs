@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>المهام | Coding with MO</title>
+
+    <link rel="stylesheet" href="admin-pages.css">
+
+</head>
+
+
+<body>
+
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>&lt;/&gt;</span>
+            
+        </div>
+
+
+        <nav>
+
+            <a href="/admin-dashboard" >
+                🏠
+                لوحة التحكم
+            </a>
+
+            <a href="/admin-students" >
+                👨‍🎓
+                الطلاب
+            </a>
+
+            <a href="/admin-tasks" class="active">
+                📝
+               اضافه مهمه
+            </a>
+
+            <a href="/admin-submissions">
+                📚
+               المهام المسلمه
+            </a>
+
+          
+
+            <a href="/admin-attendance">
+                📊
+                الحضور
+            </a>
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+
+    <main class="main">
+
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    إدارة المهام 📝
+                </h1>
+
+                <p>
+                    إنشاء مهمة وإرسالها للطلاب
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <section class="card form-card">
+
+
+            <div class="card-title">
+
+                <h2>
+                    إنشاء مهمة جديدة
+                </h2>
+
+            </div>
+
+
+            <form action="/admin-tasks" method="post">
+
+
+                <div class="input-group">
+
+                    <label>
+                        عنوان المهمة
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="مثلاً: تطبيق على Flexbox"
+                        name="title"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="input-group">
+
+                    <label>
+                        وصف المهمة
+                    </label>
+
+                    <textarea
+                    required
+                        name="description"
+                        rows="6"
+                        placeholder="اكتب تفاصيل المهمة هنا..."          
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="form-grid">
+
+
+                  
+
+
+
+                    <div class="input-group">
+
+                        <label>
+                            موعد التسليم
+                        </label>
+
+                        <input required name="date" type="date">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- TARGET STUDENTS -->
+
+                <div class="input-group">
+
+                    <label>
+                        إرسال المهمة إلى
+                    </label>
+
+
+                    <div class="target-options">
+
+
+                        <label class="target">
+
+                            <input
+                                type="radio"
+                                name="target"
+                                value="all"
+                                id="all"
+                                checked
+                                
+                            >
+
+                            <span>
+                                📢 جميع الطلاب
+                            </span>
+
+                        </label>
+
+
+
+                        <label class="target">
+
+                            <input
+                                type="radio"
+                                name="target"
+                                value="selected"
+                                id="selected"
+                                
+                            >
+
+                            <span>
+                                👤 طلاب محددين
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STUDENT SELECTION -->
+
+                <div class="input-group">
+
+                    <label>
+                        اختر الطلاب
+                    </label>
+
+                    <select disabled id="selectArea" name="students" multiple>
+                        
+                        <%if(allStudents){%>
+                            <%allStudents.forEach(student=>{%>
+                        <option value="<%=student._id%>">
+                          <%=student.name%>
+                        </option>
+                           <% })%>
+                       <% }%>
+                       
+
+                      
+
+                    </select>
+
+                    <small>
+                        يمكنك اختيار أكثر من طالب
+                    </small>
+
+                </div>
+
+
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    🚀 إرسال المهمة
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+
+      
+
+
+
+      
+
+
+                
+
+
+
+                
+
+        </section>
+
+
+    </main>
+
+<script src="index.js"></script>
+</body>
+
+</html>

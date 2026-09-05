@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>المهام | Coding with MO</title>
+
+    <link rel="stylesheet" href="/admin-pages.css">
+    
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>&lt;/&gt;</span>
+
+            Coding with MO
+
+        </div>
+
+
+        <nav>
+
+            <a href="/student-dashboard" class="active">🏠 لوحة التحكم</a>
+             <a href="/student-tasks">📝 المهام</a>
+            <a href="/student-attendance">📊 الحضور</a>
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    المهام 📝
+                </h1>
+
+                <p>
+                  المهام المطلوبه منك في هذا الواجب
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- TASKS -->
+
+        <section class="card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                       الواجب
+                    </h2>
+
+                    <div class="task-arrow">
+                       اخر موعد لتسليم الواجب هو <%=titleTask.deadline.toLocaleDateString("nl-NL")%>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="student-tasks">
+
+
+              <a
+                    
+                    class="task-item"
+                >
+
+                    <div class="task-icon">
+                        📝
+                    </div>
+
+
+                    <div class="task-info">
+
+                       
+                          <h2><%=titleTask.title%></h2>
+    
+                     
+
+                      
+                          <h4 style="margin-top: 10px;"><%=titleTask.description%></h4>
+                        
+
+                    </div>
+
+
+                    
+
+                </a>
+                  <p><%=studentID%> رمز الطالب</p>
+                <p><%=titleTask._id%> رمز التاسك</p>
+             
+                
+              <% if(titleTask.submitted){%>
+                <h3 style="color: green;">لقد ارسلت رابط حل الواجب يوم <%=titleTask.submittedDay%> ✔</h3>
+                
+                
+              <% } else {%>
+                 <form action="/sent-task-back" method="post">
+                    <button type="submit" class="btn">ارسل الرابط</button>
+                    <input type="text" name="gitHubLink" class="inputtext" placeholder="👈👈👈👈👈ضع رابط الـ gitHub هنا 👉👉👉👉👉" required value="" >
+                    <input type="hidden" name="taskID" value="<%=titleTask._id%>">
+                    <input type="hidden" name="studentID" value="<%=studentID%>">
+                    <input type="hidden" name="titleTask" value="<%=titleTask.title%>">
+                </form>
+              <% }%>
+             <% if(taskEvaluation){%>
+                <h1 style="text-align: center;">تقيم الواجب</h1>
+                <h3 class="taskEvaluation"><%=taskEvaluation%></h3>
+              <%}%>
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

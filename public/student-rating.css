@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0f19;
+    color: white;
+    direction: rtl;
+}
+
+
+/* Main */
+
+.main {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+
+/* Rating Container */
+
+.rating-container {
+    width: 100%;
+    max-width: 650px;
+
+    background: #111827;
+
+    border: 1px solid #1f2937;
+
+    border-radius: 16px;
+
+    padding: 35px;
+}
+
+
+/* Header */
+
+.rating-header {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+
+    margin-bottom: 35px;
+}
+
+.logo span {
+    color: #f5d000;
+    font-size: 28px;
+}
+
+.rating-header h1 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+.rating-header p {
+    color: #9ca3af;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* Form */
+
+.rating-form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Input Group */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    color: #d1d5db;
+
+    font-size: 14px;
+}
+
+
+/* Inputs */
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+
+    background: #0b0f19;
+
+    border: 1px solid #374151;
+
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition: .3s;
+}
+
+
+/* Focus */
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #f5d000;
+}
+
+
+/* Select */
+
+.input-group select option {
+    background: #111827;
+
+    color: white;
+}
+
+
+/* Textarea */
+
+.input-group textarea {
+    resize: vertical;
+
+    min-height: 140px;
+
+    line-height: 1.7;
+}
+
+
+/* Placeholder */
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #6b7280;
+}
+
+
+/* Submit Button */
+
+.submit-btn {
+    width: 100%;
+
+    background: #f5d000;
+
+    color: #111827;
+
+    border: none;
+
+    padding: 14px 20px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    transition: .3s;
+
+    margin-top: 5px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 20px rgba(245, 208, 0, .15);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .main {
+        padding: 20px 15px;
+    }
+
+    .rating-container {
+        padding: 25px 20px;
+    }
+
+    .rating-header h1 {
+        font-size: 24px;
+    }
+
+}

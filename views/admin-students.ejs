@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>إدارة الطلاب | Coding with MO</title>
+
+    <link rel="stylesheet" href="admin-pages.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>&lt;/&gt;</span>
+            Coding with MO
+        </div>
+
+
+        <nav>
+
+            <a href="/admin-dashboard" >
+                🏠
+                لوحة التحكم
+            </a>
+
+            <a href="/admin-students" class="active">
+                👨‍🎓
+                الطلاب
+            </a>
+
+            <a href="/admin-tasks">
+                📝
+               اضافه مهمه
+            </a>
+
+            <a href="/admin-submissions">
+                📚
+               المهام المسلمه
+            </a>
+
+          
+
+            <a href="/admin-attendance">
+                📊
+                الحضور
+            </a>
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    إدارة الطلاب 👨‍🎓
+                </h1>
+
+                <p>
+                    إضافة وتعديل وحذف بيانات الطلاب
+                </p>
+
+            </div>
+
+
+     
+
+        </header>
+
+
+
+        <!-- SEARCH -->
+
+        <section class="card search-card">
+
+           <form action="/search" method="post">
+             <input
+                type="search"
+                name="search"
+                placeholder="🔎 ابحث عن طالب بالاسم أو البريد او رقم ال ..."
+            >
+            <button hidden type="submit">search</button>
+           </form>
+
+        </section>
+
+
+
+        <!-- STUDENTS TABLE -->
+
+        <section class="card">
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                        قائمة الطلاب 
+                    </h2>
+
+                    <p>
+                        <%=totalStudents.length%> طالب مسجل
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>الطالب</th>
+                            <th>البلد</th>
+                            <th>WhatsApp</th>
+                            <th>الدورة</th>
+                            <th>الحالة</th>
+                            <th>إجراءات</th>
+
+                        </tr>
+
+                    </thead>
+
+<tbody>
+<%if(searchValue){%>
+
+    <%searchValue.forEach(student =>{%>
+<tr>
+
+                            <td>
+
+                                <div class="student">
+
+                                    <div class="student-avatar">
+                                        AM
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                        <%=student.name%>
+                                        </strong>
+
+                                        <span>
+                                        <%=student.email%>
+                                        </span>
+
+                                    </div>
+                                    
+                                </div>
+
+                            </td>
+
+
+                            <td>
+                            <%=student.country%>
+                            </td>
+
+
+                            <td>
+                            <%=student.whatsapp%>
+                            </td>
+
+
+                            <td>
+                                HTML & CSS
+                            </td>
+
+
+                            <td>
+
+                                <span class="status active">
+                                    نشط
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                
+                                    
+                                
+                                <form action="/edit-student" method="post">
+                                    <input type="hidden"  name="id" value="<%=student._id%>">
+                                    <button type="submit" class="edit-btn">
+                                        ✏️ تعديل     
+                                    </button>
+                                    </form>
+                                
+
+                                <button
+                                    class="delete-btn"
+                                    onclick="deleteStudent()"
+                                >
+                                    🗑️ حذف
+                                </button>
+
+                            </td>
+
+                        </tr>
+    <%})%>
+
+<%} else {%>
+    <%   totalStudents.forEach(student=>{%>
+
+                   
+                    
+
+                        <tr>
+
+                            <td>
+
+                                <div class="student">
+
+                                    <div class="student-avatar">
+                                        AM
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                        <%=student.name%>
+                                        </strong>
+
+                                        <span>
+                                        <%=student.email%>
+                                        </span>
+
+                                    </div>
+                                    
+                                </div>
+
+                            </td>
+
+
+                            <td>
+                            <%=student.country%>
+                            </td>
+
+
+                            <td>
+                            <%=student.whatsapp%>
+                            </td>
+
+
+                            <td>
+                                HTML & CSS
+                            </td>
+
+
+                            <td>
+
+                                <span class="status active">
+                                    نشط
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                           <form  action="/edit-student" method="post">
+                            <input type="hidden"  name="id" value="<%=student._id%>">
+                                    <button type="submit" class="edit-btn">
+                                        ✏️ تعديل     
+                                    </button>
+                                    </form>
+                           <form  action="/delete-student" method="post">
+                            <input type="hidden"  name="studentID" value="<%=student._id%>">
+                                  <button type="submit"
+                                    class="delete-btn"
+                                   
+                                >
+                                    🗑️ حذف
+                                </button>
+                                    </form>
+
+                                
+
+                            </td>
+
+                        </tr>
+
+
+
+                      
+
+                    
+ <% })%>
+<%}%>
+  
+                 
+ </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+   
+
+
+    </main>
+
+
+</body>
+
+</html>

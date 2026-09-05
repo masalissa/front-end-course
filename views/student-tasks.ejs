@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>المهام | Coding with MO</title>
+
+    <link rel="stylesheet" href="admin-pages.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>&lt;/&gt;</span>
+
+            Coding with MO
+
+        </div>
+
+
+        <nav>
+
+            <a href="/student-dashboard">🏠 لوحة التحكم </a>
+            <a href="/student-tasks" class="active">📝 المهام</a>
+            
+            <a href="/student-attendance">📊 الحضور</a>
+          
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    المهام 📝
+                </h1>
+
+                <p>
+                    المهام المطلوبة منك
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- TASKS -->
+
+        <section class="card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                        قائمة المهام
+                    </h2>
+
+                    <p>
+                        اضغط على المهمة لعرض تفاصيلها
+                    </p>
+
+                </div>
+
+            </div>
+
+           
+
+            <div class="student-tasks " >
+ 
+
+                <%if(notification.tasks.length > 0){%>
+                   <% notification.tasks.forEach(task=>{%>
+
+
+                   <% if(task.seen == false){%>
+
+                    
+                    
+<a 
+                    href="/student-tasks/<%=task.title%>"
+                    class="task-item number-up"
+                >
+               
+<%} else{%>
+<a
+                    href="/student-tasks/<%=task.title%>"
+                    class="task-item "
+                >
+<%}%>
+                    <div class="task-icon">
+                        📝
+                    </div>
+
+
+                    <div class="task-info">
+<%if(task.taskEvaluation.length > 0){%>
+    
+   
+
+                        <h3>
+                           <%=task.title%> <span style="color: green; font-size: 20px; ">✔</span>
+                        </h3>
+<%} else {%>
+    <h3>
+                           <%=task.title%>
+                        </h3>
+<%}%>
+                        <span>
+                           <%=task.description.slice(0,70)%>...
+                        </span>
+
+                    </div>
+
+
+                    <div class="task-arrow">
+                        ← <hr style="border-width: 0;"/><hr style="border-width: 0;"/> اخر موعد لتسليم الواجب هو <%=task.deadline.toLocaleDateString("nl-NL")%>
+                    </div>
+
+                </a>
+                    <%})%>
+ 
+                <%} else {%>
+                    <div class="task-info task-item">
+
+                        <h3>
+                          لا توجد مهام حالياً
+                        </h3>
+
+                        <span>
+                         بعد المحاضره تظهر المهام
+                        </span>
+
+                    </div>
+                <%}%>
+                
+               
+
+
+
+              
+
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

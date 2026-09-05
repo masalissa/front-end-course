@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>لوحة الطالب | Coding with MO</title>
+    <link rel="icon" href="images/coding logo.png">
+    <link rel="stylesheet" href="student-dashboard.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+             <img width="100px" src="images/coding logo.png" alt="">
+            
+           <h4> Coding with MO</h4>
+        </div>
+
+        <nav>
+
+            <a href="/student-dashboard" class="active">🏠 لوحة التحكم</a>
+            <a href="/student-tasks">📝 المهام</a>
+            <a href="/student-attendance">📊 الحضور</a>
+            <a href="/student-rating">🌟 تقييم الدورة</a>
+        </nav>
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+    <!-- Main -->
+
+    <main class="main">
+
+        <!-- Top -->
+
+        <header class="top">
+
+            <div>
+                <h1><%=greetingStudent%> <%=name%></h1>
+
+                <p>
+                    أهلاً بك <%=name%>، تابع تقدمك في الدورة من هنا.
+                </p>
+            </div>
+
+            
+                
+               <% if(notification.tasks.length == 0){%>
+<div class="notification"><a href="/student-tasks"><abbr title="لاتوجد مهام جديده">🔔</abbr></a><div class="number-up"><%=arrayOfNoSeen.length%></div></div>
+                <%} else {%>
+                   <div class="notification"><a href="/student-tasks"><abbr title="الذهاب الى المهام">🔔</abbr></a><div class="number-up"><%=arrayOfNoSeen.length%></div></div>
+                    
+                <%}%>
+                
+            
+
+        </header>
+
+
+        <!-- Student Profile -->
+
+        <section class="profile-card">
+
+          
+
+            <div class="profile-info">
+
+                <h2><%=name%></h2>
+
+                <p>📧 <%=email%></p>
+
+                <p>🌍 <%=country%></p>
+
+                <p>📱 <%=whatsapp%></p>
+
+            </div>
+
+            
+
+        </section>
+
+
+        <!-- Statistics -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <span class="icon">📚</span>
+
+                <div>
+                    <span>مجموع المحاضرات</span>
+                    <strong><%=totalTasks%></strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="icon">✅</span>
+
+                <div>
+                    <span>تم حضورها</span>
+                    <strong><%=notification.attendance.length %></strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="icon">❌</span>
+
+                <div>
+                    <span>لم يحضر</span>
+                    <strong><%=totalTasks-notification.attendance.length %></strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="icon">📝</span>
+
+                <div>
+                    <span>المهام المكتملة</span>
+                    <strong><%=totalTasks%> / <%=numbersOfSubmitted %></strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+       
+
+
+       
+
+
+    </main>
+
+</body>
+
+</html>

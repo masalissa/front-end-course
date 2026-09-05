@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>تسليم المهام | Coding with MO</title>
+
+    <link rel="stylesheet" href="admin-pages.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>&lt;/&gt;</span>
+
+            Coding with MO
+
+        </div>
+
+
+        <nav>
+
+            <a href="/admin-dashboard" >
+                🏠
+                لوحة التحكم
+            </a>
+
+            <a href="/admin-students">
+                👨‍🎓
+                الطلاب
+            </a>
+
+            <a href="/admin-tasks" class="active">
+                📝
+               اضافه مهمه
+            </a>
+
+            <a href="/admin-submissions">
+                📚
+               المهام المسلمه
+            </a>
+
+          
+
+            <a href="/admin-attendance">
+                📊
+                الحضور
+            </a>
+
+          
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    تسليم المهام 📚
+                </h1>
+
+                <p>
+                    مراجعة المهام التي قام الطلاب بتسليمها
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- SEARCH STUDENT -->
+
+        <section class="card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                        اختيار الطالب
+                    </h2>
+
+                    <p>
+                        اختر طالبًا أو ابحث عن اسمه
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-grid">
+
+
+                <!-- DROPDOWN -->
+
+                <div class="input-group">
+
+                    <label for="student">
+
+                        اختر الطالب
+
+                    </label>
+
+              
+                    <form action="/admin-submissions" method="post">
+                        <select name="studentID" value="" id="student">
+
+                        <option value="">
+
+                            اختر طالبًا...
+
+                        </option>
+
+
+                            <%if(result.length > 0){%>
+                        <%result.forEach(student =>{%>
+                            
+                        <option value="<%=student.student._id%>">
+
+                           <%=student.student.name%>
+                            ||<%= student.task.title%>
+                        </option>       
+                        <%})%>
+                       <%}%>
+                        
+                    </select>
+                    <button type="submit" class="primary-btn" style="margin-top: 20px;">أبحث</button>
+                    </form>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- SUBMISSION -->
+
+        <section class="card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                        بيانات التسليم
+                    </h2>
+
+                    <p>
+                        معلومات الطالب والمهمة التي قام بتسليمها
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            
+
+
+                <!-- STUDENT DATA -->
+
+                <div class="student-details">
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            الاسم
+                        </span>
+
+                        <strong>
+                          <%=studentInfo.name%>
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            البريد الإلكتروني
+                        </span>
+
+                        <strong>
+                            <%=studentInfo.email%>
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            البلد
+                        </span>
+
+                        <strong>
+                            <%=studentInfo.country%>
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            الجنس
+                        </span>
+
+                        <strong>
+                            <%=studentInfo.gender%>
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- TASK -->
+
+                <div class="task-details">
+                    <%if(studentInfo){%>
+<%studentInfo.tasks.forEach(task =>{%>
+    <%if(task.submitted == true && task.taskEvaluation.length == 0){%>
+<div class="input-group">
+
+                        <label>
+                            عنوان المهمة
+                        </label>
+
+                        <input
+                            type="text"
+                            name="taskTitle"
+                            value="<%=task.title%>"
+                            readonly
+                        >
+
+                    </div>
+<div class="input-group">
+
+                        <label>
+                            وصف المهمة
+                        </label>
+
+                        <textarea
+                            name="taskDescription"
+                            rows="5"
+                            readonly
+                        ><%=task.description%></textarea>
+
+                    </div>
+<!-- GITHUB -->
+
+                    <div class="input-group">
+
+                        <label>
+                            رابط GitHub
+                        </label>
+
+                        <input
+                            type="url"
+                            name="githubLink"
+                            value="<%=task.githubLink%>"
+                            readonly
+                        >
+
+                    </div>
+
+
+                </div>
+
+  
+
+                
+
+
+                    
+                <form action="/addNote" method="POST">
+
+                <!-- ADMIN NOTE -->
+
+                <div class="input-group">
+
+                    <label for="adminNote">
+
+                        ملاحظتك على المهمة
+
+                    </label>
+
+
+                    <textarea
+                        id="adminNote"
+                        name="adminNote"
+                        rows="7"
+                        placeholder="اكتب ملاحظاتك على عمل الطالب هنا..."
+                    ></textarea>
+
+                </div>
+
+
+
+                
+   
+
+
+                <!-- HIDDEN IDs -->
+
+                <input
+                    type="hidden"
+                    name="studentId"
+                    value="<%=studentInfo._id%>"
+                >
+                      
+                <input
+                    type="hidden"
+                    name="taskId"
+                    value="<%=task._id%>"
+                >
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+
+                    💾 حفظ التقييم
+
+                </button>
+
+
+            </form>
+  <%}%>
+    
+
+
+<%})%>
+                    <%}%>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

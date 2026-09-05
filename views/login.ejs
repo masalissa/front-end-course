@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول | Coding with MO</title>
+    <link rel="icon" href="images/coding logo.png">
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <div class="logo">
+                <!-- <span>&lt;/&gt;</span> -->
+                 <img src="images/coding logo.png" alt="">
+                <h1>Coding with MO</h1>
+            </div>
+
+            <h2>مرحباً بعودتك 👋</h2>
+
+            <p class="description">
+                سجّل الدخول إلى حسابك للوصول إلى دوراتك ولوحة التحكم الخاصة بك.
+            </p>
+
+            <form method="post" action="/login">
+
+                <div class="input-group">
+                    <label for="email">البريد الإلكتروني</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="example@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+
+                    <label for="password">كلمة المرور</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="أدخل كلمة المرور"
+                        required
+                    >
+
+                </div>
+
+                <div class="options">
+
+                  
+
+                    <a href="#">نسيت كلمة المرور؟</a>
+
+                </div>
+
+                <button type="submit">
+                    تسجيل الدخول
+                </button>
+
+            </form>
+
+            <div class="divider">
+                <span>أو</span>
+            </div>
+
+            <p class="register">
+                ليس لديك حساب؟
+                <a href="/#registerForm">إنشاء حساب جديد</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

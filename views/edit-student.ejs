@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>تعديل بيانات الطالب | Coding with MO</title>
+
+    <link rel="stylesheet" href="admin-pages.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>&lt;/&gt;</span>
+
+            Coding with MO
+
+        </div>
+
+
+        <nav>
+
+            <a href="/admin-dashboard">
+                🏠 لوحة التحكم
+            </a>
+
+            <a href="/admin-students" class="active">
+                👨‍🎓 الطلاب
+            </a>
+
+            <a href="/admin-tasks">
+                📝 المهام
+            </a>
+
+            <a href="/admin-attendance">
+                📊 الحضور
+            </a>
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    تعديل بيانات الطالب ✏️
+                </h1>
+
+                <p>
+                    قم بتعديل البيانات ثم اضغط على حفظ التعديلات
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- STUDENT FORM -->
+
+        <section class="card form-card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                        بيانات الطالب
+                    </h2>
+
+                    <p>
+                        يمكنك تعديل المعلومات الخاصة بالطالب
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <form
+                action="/update-student"
+                method="POST"
+            >
+
+
+                <div class="form-grid">
+
+
+                    <!-- NAME -->
+
+                    <div class="input-group">
+
+                        <label for="name">
+                            الاسم الكامل
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value="<%=studentInfo.name%>"
+                            required
+                        >
+                        
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <label for="email">
+                            البريد الإلكتروني
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value=<%=studentInfo.email%>
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- COUNTRY -->
+
+                    
+<div class="input-group">
+
+                        <label for="country">
+                          البلد
+                        </label>
+
+                        <input
+                            type="text"
+                            id="country"
+                            name="country"
+                            value="<%=studentInfo.country%>"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="input-group">
+
+                        <label for="country">
+                          الجنس
+                        </label>
+
+                        <input
+                            type="text"
+                            id="gender"
+                            name="gender"
+                            value="<%=studentInfo.gender%>"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- WHATSAPP -->
+
+                    <div class="input-group">
+
+                        <label for="whatsapp">
+                            رقم WhatsApp
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="whatsapp"
+                            name="whatsapp"
+                            value="<%=studentInfo.whatsapp%>"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="input-group">
+
+                        <label for="password">
+                            كلمة المرور
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value="<%=studentInfo.password%>"
+                            placeholder="اتركها فارغة إذا لم ترد تغييرها"
+                        >
+
+                    </div>
+
+
+
+                    <!-- COURSE -->
+
+                    <div class="input-group">
+
+                        <label for="course">
+                            الدورة
+                        </label>
+
+                        <select
+                            id="course"
+                            name="course"
+                            required
+                        >
+
+                            <option
+                                value="html-css"
+                                selected
+                            >
+                                HTML & CSS
+                            </option>
+
+                            <option value="javascript">
+                                JavaScript
+                            </option>
+
+                            <option value="full-stack">
+                                Full Stack
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="input-group">
+
+                        <label for="status">
+                            حالة الطالب
+                        </label>
+
+                        <select
+                            id="status"
+                            name="status"
+                            required
+                        >
+
+                            <option
+                                value="active"
+                                selected
+                            >
+                                نشط
+                            </option>
+
+                            <option value="inactive">
+                                غير نشط
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="form-buttons">
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        💾 حفظ التعديلات
+                    </button>
+                    <input type="hidden" name="studentID" value="<%=studentInfo._id%>">
+
+                    <a
+                        href="/admin-students"
+                        class="cancel-btn"
+                    >
+                     👨‍🎓 رجوع الى ادارة الطلاب  
+                    </a>
+                    <a
+                        href="/admin-dashboard"
+                        class="cancel-btn"
+                    >
+             🏠 رجوع الى لوحة التحكم 
+                    </a>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>الحضور | Coding with MO</title>
+
+    <link rel="stylesheet" href="admin-pages.css">
+
+</head>
+
+
+<body>
+
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>&lt;/&gt;</span>
+            Coding with MO
+        </div>
+
+
+        <nav>
+
+            <a href="/admin-dashboard" class="active">
+                🏠
+                لوحة التحكم
+            </a>
+
+            <a href="/admin-students">
+                👨‍🎓
+                الطلاب
+            </a>
+
+            <a href="/admin-tasks">
+                📝
+               اضافه مهمه
+            </a>
+
+            <a href="/admin-submissions">
+                📚
+               المهام المسلمه
+            </a>
+
+          
+
+            <a href="/admin-attendance"  class="active">
+                📊
+                الحضور
+            </a>
+
+          
+
+        </nav>
+
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+<div style="display: flex;">
+<form action="/admin-attendance" method="post">
+    <main class="main">
+
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    تسجيل الحضور 📊
+                </h1>
+
+                <p>
+                    تسجيل حضور الطلاب لكل محاضرة
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- LESSON INFO -->
+       
+        <section class="card">
+
+
+            <div class="form-grid">
+
+
+               
+
+
+
+              
+
+                   
+                <div class="input-group">
+
+                    <label>
+                       رقم المحاضره                    
+                    </label>
+
+                    <input name="LectureNumber" placeholder="رقم وعنوان المحاضره" required type="text">
+
+                </div>
+
+
+
+                <div class="input-group">
+
+                    <label>
+                        تاريخ المحاضرة
+                    </label>
+
+                    <input name="attendanceDate" required type="date">
+
+                </div>
+
+
+           
+
+
+        </section>
+
+
+
+        <!-- STUDENTS -->
+
+        <section class="card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <h2>
+                        الطلاب
+                    </h2>
+
+                    <p>
+                        حدد حالة حضور كل طالب
+                    </p>
+
+                </div>
+
+
+               
+
+            </div>
+
+<%if(arrayOfvalues.length > 0){%>
+   <% arrayOfvalues.forEach(student =>{%>
+      <div class="attendance-list">
+                
+
+                <div class="attendance-student">
+
+
+                    
+                    <div class="student">
+
+                      
+
+                        <div>
+
+                            <strong>
+                               <%=student.name%>
+                            </strong>
+
+                            <span>
+                               <%=student.email%>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                
+                   
+
+                    <div class="attendance-buttons">
+
+                                <label class="present">
+                                     ✓ حاضر
+                                </label>
+
+                                <input
+                                    type="checkbox"
+                                    name="studentID"
+                                    value="<%=student._id%>"
+                                >
+                                <input type="hidden" name="present" value="true">
+                                
+                            </div>
+
+                </div>
+    <%})%>
+<%} else {%>
+<%allStudents.forEach(student =>{%>
+ <div class="attendance-list">
+                
+
+                <div class="attendance-student">
+
+
+                    
+                    <div class="student">
+
+                      
+
+                        <div>
+
+                            <strong>
+                               <%=student.name%>
+                            </strong>
+
+                            <span>
+                               <%=student.email%>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                
+                   
+
+                    <div class="attendance-buttons">
+
+                             
+
+                                <input style="display: none;"
+                                    type="checkbox"
+                                    name="studentID"
+                                    value="<%=student._id%>"
+                                >
+                    <input type="hidden" name="present" value="true">
+                  
+                        </div>
+
+                </div>
+                          
+<%})%>
+
+<%}%>
+
+
+
+
+
+        
+          
+
+
+
+            <button
+                class="primary-btn save-attendance"
+            >
+                💾 حفظ الحضور
+            </button>
+
+
+        </section>
+
+    </main>
+</form>
+
+
+
+
+
+    <div class="input-group" style="width:30%; margin: auto;">
+                <form action="/searchStudent" method="post">
+                    <label>
+                      البحث عن الطلاب                   
+                    </label>
+
+                    <input name="searchStudent" type="text">
+                     <button type="submit" class="primary-btn save-attendance">
+                🔍 ابحث
+            </button>
+</form>
+                </div>
+</div>
+ 
+
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تقييم الدورة</title>
+
+    <link rel="stylesheet" href="student-rating.css">
+</head>
+
+<body>
+
+    <main class="main">
+
+        <div class="rating-container">
+
+            <div class="rating-header">
+                <div class="logo" style="display: flex; justify-content: center; align-items: center; gap: 5px ; ">
+                    <span><img style="width: 50px;" src="images/coding logo.png" alt="coding logo"></span>
+                    Coding with MO
+                </div>
+
+                <h1>تقييم الدورة</h1>
+
+                <p>
+                    نود معرفة رأيك عن الدورة وتجربتك معنا
+                </p>
+            </div>
+            <%if(wrong){%>
+                <h3 style="margin-bottom:10px; background-color:rgba(255, 0, 0, 0.801); color:yellow; text-align: center; padding:10px; border-radius: 5px;">لقد قدمت تقييمك مسبقاً شكرا على التقييم 🚧</h3>
+            <%}%>
+           
+            <form class="rating-form" action="/student-rating" method="POST">
+
+                <div class="input-group">
+
+                    <label>اسم الطالب</label>
+
+                    <input readonly
+                        name="studentName"
+                        type="text"
+                        placeholder=""
+                        value="<%=studentobj.name%>"
+                    >
+
+                </div>
+             
+
+                <div class="input-group">
+
+                    <label>كم تعطي الدورة من 10؟</label>
+
+                    <select name="rating">
+                        <option value="">اختر التقييم</option>
+                        <option value="10">10 / 10</option>
+                        <option value="9">9 / 10</option>
+                        <option value="8">8 / 10</option>
+                        <option value="7">7 / 10</option>
+                        <option value="6">6 / 10</option>
+                        <option value="5">5 / 10</option>
+                        <option value="4">4 / 10</option>
+                        <option value="3">3 / 10</option>
+                        <option value="2">2 / 10</option>
+                        <option value="1">1 / 10</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>تعليقك</label>
+
+                    <textarea
+                        name="comment"
+                        rows="6"
+                        placeholder="اكتب رأيك عن الدورة..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    إرسال التقييم
+                </button>
+               
+
+            </form>
+                <button
+                   
+                    class="submit-btn"
+                >
+                    <a style="text-decoration: none; color:black" href="/student-dashboard">رجوع</a> 
+                </button>
+        </div>
+
+    </main>
+
+</body>
+</html>

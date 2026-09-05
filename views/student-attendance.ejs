@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>سجل الحضور</title>
+
+    <link rel="stylesheet" href="/student-attendance.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>&lt;/&gt;</span>
+            Coding with MO
+        </div>
+
+        <nav>
+            <a href="/student-dashboard" >🏠 لوحة التحكم</a>
+             <a href="/student-tasks">📝 المهام</a>
+            <a href="/student-attendance" class="active">📊 الحضور</a>
+        </nav>
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
+
+
+    <main class="main">
+
+        <div class="page-header">
+
+            <div>
+                <h1>سجل الحضور</h1>
+                <p>جميع المحاضرات التي حضرتها</p>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+
+                <div>
+                    <h2>الحضور</h2>
+                    <p>تاريخ حضورك في المحاضرات</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>تاريخ الحضور</th>
+                            <th>عنوان المحاضرة</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <%if(studentInfo){%>
+                            <%studentInfo.attendance.forEach(day =>{%>
+                        <tr>
+                            <td><%=day.attendanceDate.toLocaleDateString("nl-NL")%></td>
+                            <td><%=day.LectureNumber%></td>
+                        </tr>
+
+                                
+                        <%})%>
+                       <%} else {%>
+                    <td><h3 style="text-align: center;">لا توجد محاضرات حتى الان</h3></td>
+
+                       <%}%>
+
+                        
+
+                       
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
