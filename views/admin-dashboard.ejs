@@ -30,11 +30,8 @@
     <aside class="sidebar">
 
         <div class="logo">
-
-            <span>&lt;/&gt;</span>
-
+            <span><img style="width: 40px;" src="images/coding logo.png" alt=""></span>
             Coding with MO
-
         </div>
 
 
@@ -72,7 +69,7 @@
         </nav>
 
 
-        <a href="#" class="logout">
+        <a href="/logout" class="logout">
 
             🚪
             تسجيل الخروج
@@ -269,7 +266,7 @@
                             </th>
 
                             <th>
-                                المستوى
+                                  هل لديك فكرة مسبقة عن الـ Front-End Development؟
                             </th>
 
                             <th>
@@ -377,10 +374,7 @@
 
                                 <div class="student">
 
-                                    <img
-                                        src="images/student1.jpg"
-                                        alt="الطالب"
-                                    >
+                                   
 
                                     <div>
 
@@ -412,19 +406,29 @@
 
 
                             <td>
-
-                                <span class="good">
-                                    
-                                </span>
+                              
+                             <%=totaltasksFromAdmin%> /  <%=student.attendance.length%>
 
                             </td>
 
 
                             <td>
 
-                                <span class="level good">
-                                   
+                                
+                                     <%if(student.programmingLevel == "good"){%>
+                                <span style="color:green">
+                                    <%=student.programmingLevel%>
                                 </span>
+                                <%} else if(student.programmingLevel == "basic"){%>
+                                        <span style="color: yellow;">
+                                         <%=student.programmingLevel%>
+                                        </span>
+                                <%} else {%>
+                                 <span style="color:lightslategray">
+                                         <%=student.programmingLevel%>
+                                        </span>
+                                <%}%>
+                             
 
                             </td>
 

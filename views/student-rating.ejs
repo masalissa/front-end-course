@@ -7,10 +7,31 @@
     <title>تقييم الدورة</title>
 
     <link rel="stylesheet" href="student-rating.css">
+    <link rel="stylesheet" href="student-dashboard.css">
 </head>
 
 <body>
+ <aside class="sidebar">
 
+        <div class="logo">
+             <img width="100px" src="images/coding logo.png" alt="">
+            
+           <h4> Coding with MO</h4>
+        </div>
+
+        <nav>
+
+            <a href="/student-dashboard">🏠 لوحة التحكم</a>
+            <a href="/student-tasks">📝 المهام</a>
+            <a href="/student-attendance">📊 الحضور</a>
+            <a href="/student-rating" class="active">🌟 تقييم الدورة</a>
+        </nav>
+
+        <a href="/logout" class="logout">
+            🚪 تسجيل الخروج
+        </a>
+
+    </aside>
     <main class="main">
 
         <div class="rating-container">
@@ -49,20 +70,16 @@
 
                 <div class="input-group">
 
-                    <label>كم تعطي الدورة من 10؟</label>
+                    <label>كم تعطي الدورة من 5؟</label>
 
-                    <select name="rating">
+                    <select required name="rating">
                         <option value="">اختر التقييم</option>
-                        <option value="10">10 / 10</option>
-                        <option value="9">9 / 10</option>
-                        <option value="8">8 / 10</option>
-                        <option value="7">7 / 10</option>
-                        <option value="6">6 / 10</option>
-                        <option value="5">5 / 10</option>
-                        <option value="4">4 / 10</option>
-                        <option value="3">3 / 10</option>
-                        <option value="2">2 / 10</option>
-                        <option value="1">1 / 10</option>
+        
+                        <option value="5">⭐⭐⭐⭐⭐ 5 / 5</option>
+                        <option value="4">⭐⭐⭐⭐ 4 / 5</option>
+                        <option value="3">⭐⭐⭐ 3 / 5</option>
+                        <option value="2">⭐⭐ 2 / 5</option>
+                        <option value="1">⭐ 1 / 5</option>
                     </select>
 
                 </div>
@@ -72,7 +89,7 @@
 
                     <label>تعليقك</label>
 
-                    <textarea
+                    <textarea required
                         name="comment"
                         rows="6"
                         placeholder="اكتب رأيك عن الدورة..."
@@ -81,7 +98,7 @@
                 </div>
 
 
-                <button
+                <button id="submitBTN"
                     type="submit"
                     class="submit-btn"
                 >
@@ -90,15 +107,22 @@
                
 
             </form>
-                <button
-                   
-                    class="submit-btn"
-                >
-                    <a style="text-decoration: none; color:black" href="/student-dashboard">رجوع</a> 
+                <button id="btnSubmit" class="submit-btn">
+                 رجوع
                 </button>
         </div>
 
     </main>
 
+    <script>
+        let btn = document.getElementById("btnSubmit")
+        let submitBTN = document.getElementById("submitBTN")
+        submitBTN.addEventListener("click",()=>{
+            alert("🌟 شكرا على تقيمك للدوره تقييمك يساعدنا على تطوير الدوره بشكل دوري")
+        })
+        btn.addEventListener("click",()=>{
+window.location.href = "/student-dashboard"
+        })
+    </script>
 </body>
 </html>

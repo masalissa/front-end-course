@@ -1,5 +1,6 @@
 require('dotenv').config()
 const bcrypt = require('bcrypt');
+var nodemailer = require('nodemailer');
 const express = require("express")
 const session = require("express-session");
 const { default: mongoose, get } = require("mongoose");
@@ -21,6 +22,7 @@ const studentsSchema = mongoose.Schema({
     email:String,
     country:String,
     gender:String,
+    programmingLevel:String,
     whatsapp:Number,
     password:String,
    
@@ -67,6 +69,7 @@ const studentsSchema = mongoose.Schema({
 })
 
 const Student = studentsDB.model("student",studentsSchema)
+
 const reviewsSchema = mongoose.Schema({
     name:String,
     rating:Number,
@@ -112,8 +115,18 @@ app.use(
 app.get('/',async(req,res)=>{
     let arrayOfStudens = await Student.find({})
     let totalStudents = arrayOfStudens.length
+let arrayOfreviews = []
+    let allReviews = await Review.find({})
+    console.log(allReviews);
+    allReviews.forEach(review =>{
+        if(review.rating >= 5){
+            arrayOfreviews.push(review)
+        }
+    })
+    console.log(arrayOfreviews);
     
-res.render("index",{wrong:"",totalStudents:totalStudents})
+    
+res.render("index",{wrong:"",totalStudents:totalStudents,arrayOfreviews})
 })
 
 app.get("/login",(req,res)=>{
@@ -131,7 +144,7 @@ app.post("/login", async (req, res) => {
 
     let email = req.body.email;
     let password = req.body.password;
-
+    req.session.adminEmail = email
     // ابحث عن المستخدم بواسطة الإيميل فقط
     let user = await Student.findOne({ email: email });
 
@@ -153,6 +166,7 @@ app.post("/login", async (req, res) => {
 
         req.session.isAuth = true;
         req.session.role = user.role;
+        req.session.id = user._id;
         req.session.name = user.name;
         req.session.email = user.email;
         req.session.previousPage = req.originalUrl;
@@ -180,9 +194,11 @@ app.post("/signup",async(req,res)=>{
     let country = req.body.country
     let gender = req.body.gender
     let whatsapp = req.body.whatsapp
-
+    let programmingLevel = req.body.programmingLevel
+    
+    
     let password = req.body.password
-    const hashedPsw = await bcrypt.hash(password,15)
+    const hashedPsw = await bcrypt.hash(password,12)
 
     let checkEmail = await Student.findOne({email:email})
     
@@ -207,11 +223,194 @@ app.post("/signup",async(req,res)=>{
         email:email,
         country:country,
         gender:gender,
+        programmingLevel:programmingLevel,
         whatsapp:whatsapp,
         password:hashedPsw,
         role:"student"
     })
-    await newStudent.save() 
+    await newStudent.save()
+
+// send email when user signed up
+// =======================
+console.log("APP_PASSWORD exists:", !!process.env.APP_PASSWORD);
+console.log("APP_PASSWORD length:", process.env.APP_PASSWORD?.length);
+
+
+
+
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mas.webdev24@gmail.com',
+    pass: process.env.APP_PASSWORD
+  }
+});
+
+const mailOptions = {
+    from: "mas.webdev24@gmail.com",
+    to: email,
+    subject: "مرحبًا بك في الدورة 🎓",
+
+    html: `<div style="
+    font-family: Arial, Tahoma, sans-serif;
+    direction: rtl;
+    text-align: right;
+    color: #333333;
+    line-height: 1.9;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+">
+
+    <!-- الشعار -->
+    <div style="
+        text-align: center;
+        margin-bottom: 30px;
+    ">
+
+        <img
+            src="https://i.postimg.cc/jjyPp9nH/coding-logo.png"
+            alt="Coding With MO"
+            width="140"
+            style="
+                display: inline-block;
+                max-width: 140px;
+                height: auto;
+            "
+        >
+
+    </div>
+
+
+    <!-- العنوان -->
+    <h1 style="
+        color: #111111;
+        font-size: 28px;
+        text-align: center;
+        margin: 0 0 30px;
+    ">
+        مرحبًا بك ${name} 👋
+    </h1>
+
+
+    <!-- النص -->
+    <p style="
+        font-size: 17px;
+        margin: 0 0 18px;
+    ">
+        يسعدنا جدًا انضمامك إلى
+        <strong style="color: #111111;">
+            Coding With MO
+        </strong>
+        🎓💻
+    </p>
+
+
+    <p style="
+        font-size: 16px;
+        color: #555555;
+        margin: 0 0 18px;
+    ">
+        تم تسجيلك في الدورة بنجاح،
+        وأصبح حسابك جاهزًا للبدء في رحلتك التعليمية معنا.
+    </p>
+
+
+    <p style="
+        font-size: 16px;
+        color: #555555;
+        margin: 0 0 18px;
+    ">
+        خلال الدورة ستتعلم خطوة بخطوة،
+        وتطبق ما تتعلمه من خلال التمارين
+        والمهام والمشاريع العملية 🚀
+    </p>
+
+
+    <p style="
+        font-size: 16px;
+        color: #555555;
+        margin: 0 0 25px;
+    ">
+        نتمنى لك رحلة تعليمية ممتعة ومليئة بالإنجازات،
+        ونتطلع إلى رؤية تطورك معنا ❤️
+    </p>
+
+
+    <!-- رسالة ترحيبية -->
+    <div style="
+        background-color: #f5f5f5;
+        border-right: 4px solid #111111;
+        padding: 15px 20px;
+        margin: 25px 0;
+        border-radius: 6px;
+    ">
+
+        <strong style="
+            font-size: 16px;
+            color: #111111;
+        ">
+            أهلًا بك مرة أخرى في Coding With MO! 💻
+        </strong>
+
+    </div>
+
+
+    <!-- زر الدخول -->
+    <div style="
+        text-align: center;
+        margin: 35px 0;
+    ">
+
+        <a
+            href="https://front-end-course-03js.onrender.com/login"
+            style="
+                display: inline-block;
+                background-color: #111111;
+                color: #ffffff;
+                text-decoration: none;
+                padding: 13px 28px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+            "
+        >
+            الدخول إلى حسابي 🚀
+        </a>
+
+    </div>
+
+
+    <!-- التوقيع -->
+    <p style="
+        font-size: 15px;
+        color: #777777;
+        margin-top: 30px;
+    ">
+        مع تحياتنا،
+        <br>
+
+        <strong style="color: #111111;">
+            فريق Coding With MO 💻
+        </strong>
+    </p>
+
+</div>
+    `
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+// =======================
+
+
     res.redirect("/login")
     
    } else {
@@ -261,7 +460,7 @@ app.get("/student-tasks",check,async(req,res)=>{
     res.render("student-tasks",{notification:notification,classForNoSeenTask:classForNoSeenTask,name:req.session.name,email:req.session.email,country:req.session.country,whatsapp:req.session.whatsapp,greetingStudent:req.session.greeting})
 })
 
-app.get("/student-tasks/:titleID",async(req,res)=>{
+app.get("/student-tasks/:titleID",check,async(req,res)=>{
      let title = req.params.titleID;
      let titleFromDB = await Student.findOne({_id:req.session.studentID})
 
@@ -298,11 +497,20 @@ app.get("/admin-dashboard",adminCheck,async(req,res)=>{
     let searchValue ="";
     req.session.previousPage = req.originalUrl
     let arrayofStudents = await Student.find({})
+    let adminEmail = req.session.adminEmail
+   
+
+    let adminInfo = await Student.findOne({email:adminEmail})
+
+    let totaltasksFromAdmin = adminInfo.tasks.length
+    console.log(totaltasksFromAdmin);
+    
+    
 
 
-    res.render("admin-dashboard",{name:req.session.name,totalStudents:arrayofStudents,searchValue:searchValue})
+    res.render("admin-dashboard",{totaltasksFromAdmin,name:req.session.name,totalStudents:arrayofStudents,searchValue:searchValue})
 })
-app.post("/admin-dashboard",async(req,res)=>{
+app.post("/admin-dashboard",adminCheck,async(req,res)=>{
     
   let arrayofStudents = await Student.find({})
     let searchValue;
@@ -327,7 +535,7 @@ app.post("/admin-dashboard",async(req,res)=>{
 })
 
 
-app.get("/admin-students",async(req,res)=>{
+app.get("/admin-students",adminCheck,async(req,res)=>{
     let searchValue
    
    
@@ -361,7 +569,7 @@ let findStudent = await Student.findOne({_id:studentId})
  res.redirect("/edit-student")
 })
 
-app.get("/edit-student",(req,res)=>{
+app.get("/edit-student",check,(req,res)=>{
     let studentObj = req.session.studentObj
     
     console.log(studentObj);
@@ -443,7 +651,7 @@ app.post("/admin-tasks",async(req,res)=>{
 res.redirect("/admin-tasks")
 })
 
-app.get("/admin-tasks",async(req,res)=>{
+app.get("/admin-tasks",adminCheck,async(req,res)=>{
    
      let allStudents = await Student.find({})
     console.log(allStudents);
@@ -451,13 +659,7 @@ app.get("/admin-tasks",async(req,res)=>{
     res.render("admin-tasks",{allStudents:allStudents})
 })
 
-// app.get("/student-tasks",(req,res)=>{
-   
-     
 
-    
-//     res.render("student-tasks")
-// })
 
 
 
@@ -510,7 +712,7 @@ res.render("admin-submissions",{result:result,studentInfo:studentInfo})
 
 })
 
-app.get("/admin-submissions",async(req,res)=>{
+app.get("/admin-submissions",adminCheck,async(req,res)=>{
    
     let students = await Student.find({})
  
@@ -569,7 +771,7 @@ let studentId = req.body.studentId
 });
 
 
-app.get("/admin-attendance", async(req,res)=>{
+app.get("/admin-attendance",adminCheck, async(req,res)=>{
 
     let allStudents = await Student.find({})
 
@@ -626,7 +828,7 @@ app.post("/searchStudent",async(req,res)=>{
 })
 
 
-app.get("/student-attendance",async(req,res)=>{
+app.get("/student-attendance",check,async(req,res)=>{
     let studentID = req.session.studentID
     
     let studentInfo = await Student.findOne({_id:studentID})
@@ -640,7 +842,7 @@ app.get("/student-attendance",async(req,res)=>{
         
 })
 
-app.get("/student-rating",async(req,res)=>{
+app.get("/student-rating",check,async(req,res)=>{
     let studentID = req.session.studentID
     
     let studentobj = await Student.findOne({_id:studentID})

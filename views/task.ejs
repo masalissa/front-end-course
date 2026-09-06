@@ -21,27 +21,21 @@
 <body>
 
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
         <div class="logo">
-
-            <span>&lt;/&gt;</span>
-
-            Coding with MO
-
+             <img width="100px" src="/images/coding logo.png" alt="">
+            
+           <h4> Coding with MO</h4>
         </div>
-
 
         <nav>
 
-            <a href="/student-dashboard" class="active">🏠 لوحة التحكم</a>
-             <a href="/student-tasks">📝 المهام</a>
+            <a href="/student-dashboard" >🏠 لوحة التحكم</a>
+            <a href="/student-tasks" class="active">📝 المهام</a>
             <a href="/student-attendance">📊 الحضور</a>
-
+            <a href="/student-rating">🌟 تقييم الدورة</a>
         </nav>
-
 
         <a href="/logout" class="logout">
             🚪 تسجيل الخروج
@@ -127,8 +121,7 @@
                     
 
                 </a>
-                  <p><%=studentID%> رمز الطالب</p>
-                <p><%=titleTask._id%> رمز التاسك</p>
+            
              
                 
               <% if(titleTask.submitted){%>
@@ -138,7 +131,7 @@
               <% } else {%>
                  <form action="/sent-task-back" method="post">
                     <button type="submit" class="btn">ارسل الرابط</button>
-                    <input type="text" name="gitHubLink" class="inputtext" placeholder="👈👈👈👈👈ضع رابط الـ gitHub هنا 👉👉👉👉👉" required value="" >
+                    <input type="url" name="gitHubLink" class="inputtext" placeholder="👈👈👈👈👈ضع رابط الـ gitHub هنا 👉👉👉👉👉" required value="" >
                     <input type="hidden" name="taskID" value="<%=titleTask._id%>">
                     <input type="hidden" name="studentID" value="<%=studentID%>">
                     <input type="hidden" name="titleTask" value="<%=titleTask.title%>">
@@ -149,8 +142,14 @@
                 <h3 class="taskEvaluation"><%=taskEvaluation%></h3>
               <%}%>
             </div>
+            <% if(titleTask.submitted){%>
 
-
+            <%} else {%>
+<div style="text-align: center; margin-top: 30px;">
+                <iframe style="box-shadow: 0 0 10px green; border-radius: 10px;"  width="560" height="315" src="https://www.youtube-nocookie.com/embed/CUvvv8b1gLU?si=NfIvejRa3rJbqIV8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            <%}%>
+                
         </section>
 
 
